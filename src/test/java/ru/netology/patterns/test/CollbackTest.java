@@ -15,11 +15,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class CollbackTest {
-    // @BeforeEach
-    // void setup() {
-    //   open("http://localhost:9999");
-    // }
-
     @Test
     @DisplayName("Should successful plan and replan meeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
