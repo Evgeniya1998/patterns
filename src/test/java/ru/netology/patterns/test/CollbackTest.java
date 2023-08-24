@@ -14,14 +14,15 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class CollbackTest {
-    @BeforeEach
-    void setup() {
-        open("http://localhost:9999");
-    }
+  //  @BeforeEach
+   // void setup() {
+   //     open("http://localhost:9999");
+   // }
 
     @Test
     @DisplayName("Should successful plan and replan meeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
+            open("http://localhost:9999");
         DataGenerator.UserInfo validUser = DataGenerator.Registration.generateUser("ru");
         //одинаковый вариант  var validUser = DataGenerator.Registration.generateUser("ru");
         int daysToAddForFirstMeeting = 4;
@@ -36,23 +37,20 @@ public class CollbackTest {
         $("[data-test-id=agreement] ").click();
         $(byText("Запланировать")).click();
         $(byText("Успешно!")).shouldBe(visible, Duration.ofSeconds(15));
-        $("[data-test-id='success-notification'] .notification__content").
-                shouldHave(exactText("Встреча успешно запланирована на " + firstMeetingDate)).
-                shouldBe(visible);
+        $("[data-test-id='success-notification'] .notification__content")
+                .shouldHave(exactText("Встреча успешно запланирована на " + firstMeetingDate))
+        .shouldBe(visible);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
-
         $("[data-test-id=date] input").setValue(secondMeetingDate);
         $(byText("Запланировать")).click();
-        $("[data-test-id='replan-notification'] .notification__content").
-                shouldHave(text("У вас уже запланирована встреча на другую дату. Перепланировать?")).
-                shouldBe(visible);
+        $("[data-test-id='replan-notification'] .notification__content")
+                .shouldHave(text("У вас уже запланирована встреча на другую дату. Перепланировать?"))
+                .shouldBe(visible);
         $("[data-test-id='replan-notification'] button").click();
-        $("[data-test-id='success-notification'] .notification__content").
-                shouldHave(exactText("Встреча успешно запланирована на " + secondMeetingDate)).
-                shouldBe(visible);
+        $("[data-test-id='success-notification'] .notification__content")
+                .shouldHave(exactText("Встреча успешно запланирована на " + secondMeetingDate))
+                .shouldBe(visible);
 
     }
-
-
 }
 
